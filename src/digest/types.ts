@@ -17,6 +17,7 @@ export type DigestRow = {
   owner: string | null; // null renders as "—"
   runs: number; // lines for this job, every status counted
   retries: number; // lines with status "retry"
+  fails: number; // lines with status "fail"; any fail marks the row
   lastStatus: RunStatus; // status of the job's latest line
   lastError: string | null; // error of the latest line that had one; null renders as "—"
   firstAt: string; // `at` of the job's first line, offset kept
@@ -26,6 +27,7 @@ export type DigestRow = {
 export type Night = {
   night: string; // YYYY-MM-DD, the file name without .jsonl
   rows: DigestRow[]; // sorted by job
+  counts: Record<RunStatus, number>; // parsed lines per status, all jobs; the board shows these
   badLines: number; // lines that did not parse; counted, never thrown
 };
 
